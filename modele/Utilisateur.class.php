@@ -16,23 +16,23 @@ class Utilisateur
     private $numTel; // numéro de téléphone de l'utilisateur
     private $niveau; // niveau d'accès : 1 = utilisateur (pratiquant ou proche) 2 = administrateur
     private $dateCreation; // date de création du compte
-    private $nbTraces; // nombre de traces stockées actuellement
+    private $nbTrace; // nombre de traces stockées actuellement
     private $dateDerniereTrace; // date de début de la dernière trace
     
     // ------------------------------------------------------------------------------------------------------
     // ----------------------------------------- Constructeur -----------------------------------------------
     // ------------------------------------------------------------------------------------------------------
-    public function __construct($unId, $unPseudo, $unMdpSha1, $uneAdrMail, $unNumTel, $unNiveau, $uneDateCreation, $unNbTraces, $uneDateDerniereTrace) {
+    public function __construct($unId, $unPseudo, $unMdpSha1, $uneAdrMail, $unNumTel, $unNiveau, $uneDateCreation, $unNbTrace, $uneDateDerniereTrace) {
             // A VOUS DE TROUVER LE CODE MANQUANT
             // Utilisez la classe Outils pour améliorer la forme du numéro de téléphone
             $this->id = $unId;
             $this->pseudo = $unPseudo;
             $this->mdpSha1 = $unMdpSha1;
             $this->adrMail = $uneAdrMail;
-            $this->numTel = $unNumTel;
+            $this->numTel = Outils::corrigerTelephone($unNumTel);
             $this->niveau = $unNiveau;
             $this->dateCreation = $uneDateCreation;
-            $this->nbTrace = $unNbTraces;
+            $this->nbTrace = $unNbTrace;
             $this->dateDerniereTrace = $uneDateDerniereTrace;
     }
     
@@ -55,7 +55,7 @@ class Utilisateur
     public function setAdrMail($uneAdrMail) {$this->adrMail = $uneAdrMail;}
     
     public function getNumTel() {return $this->numTel;}
-    public function setNumTel($unNumTel) {$this->numTel = $unNumTel;}
+    public function setNumTel($unNumTel) {$this->numTel = Outils::corrigerTelephone($unNumTel);}
     
     public function getNiveau() {return $this->niveau;}
     public function setNiveau($unNiveau) {$this->niveau = $unNiveau;}
@@ -80,7 +80,7 @@ class Utilisateur
         $msg .= 'numTel : ' . $this->numTel . '<br>';
         $msg .= 'niveau : ' . $this->niveau . '<br>';
         $msg .= 'dateCreation : ' . $this->dateCreation . '<br>';
-        $msg .= 'nbTraces : ' . $this->nbTraces . '<br>';
+        $msg .= 'nbTraces : ' . $this->nbTrace . '<br>';
         $msg .= 'dateDerniereTrace : ' . $this->dateDerniereTrace . '<br>';
         return $msg;
     }
