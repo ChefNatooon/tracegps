@@ -344,10 +344,35 @@ class DAO
     
     
     // --------------------------------------------------------------------------------------
-    // début de la zone attribuée au développeur 1 (xxxxxxxxxxxxxxxxxxxx) : lignes 350 à 549
+    // début de la zone attribuée au développeur 1 (Nathan Rouland) : lignes 350 à 549
     // --------------------------------------------------------------------------------------
     
-
+    // existeAdrMailUtilisateur($adrmail) : fournit true si l'adresse mail $adrMail existe dans la table tracegps_utilisateurs, false sinon
+    public function existeAdrMailUtilisateur($adrmail) {
+        
+        // préparation de la requête de recherche
+        $txt_req = "Select count(*) from tracegps_utilisateurs where adrMail = :adrMail";
+        $req = $this->cnx->prepare($txt_req);
+        
+        // liaison de la requête et de ses paramètres
+        $req->bindValue("adrMail", $adrmail, PDO::PARAM_STR);
+        
+        // exécution de la requête
+        $req->execute();
+        $nbReponses = $req->fetchColumn(0);
+        
+        // libère les ressources du jeu de données
+        $req->closeCursor();
+        
+        // fourniture de la réponse
+        if ($nbReponses == 0) {
+            return false;
+        }
+        else {
+            return true;
+        }
+        
+    }
     
     
     
